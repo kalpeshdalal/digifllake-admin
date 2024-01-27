@@ -24,19 +24,10 @@ const emailCustom = (value, helpers) => {
   return value;
 };
 
-const customCountryChk = (value, helpers) => {
-  if(!value){
-    return helpers.message('Please Enter Country Name.');
-  }
-  if (value && value.toLowerCase() == "country") {
-    return helpers.message('Please Enter Valid Country Name.');
-  }
-  return value;
-};
+
 
 module.exports = {
   objectId,
   password,
   emailCustom,
-  customCountryChk
 };
