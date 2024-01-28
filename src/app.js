@@ -29,10 +29,10 @@ const { jwtStrategy } = require('./config/passport');
 
 const app = express();
 
-if (config.env !== 'test') {
-  app.use(morgan.successHandler);
-  app.use(morgan.errorHandler);
-}
+
+app.use(morgan.successHandler);
+app.use(morgan.errorHandler);
+
 
 // set security HTTP headers
 app.use(helmet());

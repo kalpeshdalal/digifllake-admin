@@ -17,7 +17,7 @@ const tokenSchema = mongoose.Schema(
     },
     type: {
       type: String,
-      enum: [tokenTypes.REFRESH, tokenTypes.RESET_PASSWORD, tokenTypes.VERIFY_EMAIL, tokenTypes.SETUP_PASSWORD, tokenTypes.EDITION_PAYMENT, tokenTypes.PROFILE_INVITE, tokenTypes.SIGN_PROFILE_INVITE, tokenTypes.SOCIAL_LOGIN],
+      enum: [tokenTypes.REFRESH, tokenTypes.RESET_PASSWORD, tokenTypes.VERIFY_EMAIL],
       required: true,
     },
     expires: {

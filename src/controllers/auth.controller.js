@@ -36,8 +36,6 @@ const singup = catchAsync(async (req, res) => {
 
   try {
     const { email, password, name } = req.body;
-    let generatedOtp = Math.floor(Math.random() * 9000) + 1000;
-    // let generatedOtp = 1234;
     let userObj = {
       email,
       password,
