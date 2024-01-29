@@ -6,31 +6,7 @@ const moment = require('moment');
 const { authService, userService, tokenService } = require('../services');
 const { sendResponse } = require('../utils/responseHandler');
 
-const register = catchAsync(async (req, res) => {
 
-  try {
-    const { email, password, name, role } = req.body;
-    const isEmailTaken = await authService.checkEmail(email)
-    
-    if(isEmailTaken){
-      sendResponse(res, httpStatus.BAD_REQUEST, "Email Already taken", null,null);
-    }
-    let roleOfUser = role ? role : 'user';
-    let userObj = {
-      email,
-      password,
-      name,
-      role: roleOfUser,
-    };
-    
-    const user = await authService.singup(userObj);
-    const tokens = await tokenService.generateAuthTokens(user);
-    res.status(httpStatus.CREATED).send({ user, tokens });
-  } catch (error) {
-    sendResponse(res, httpStatus.BAD_REQUEST, error.message, null,null);
-  }
-
-});
 
 const singup = catchAsync(async (req, res) => {
 
@@ -75,33 +51,6 @@ const login = catchAsync(async (req, res) => {
 
 
 
-
-
-const getCurrentUser = catchAsync(async (req, res) => {
-  try {
-    const { token } = req.body;
-    const userRes = await authService.getCurrentUser(token);
-    if (userRes.status) {
-      res.status(httpStatus.OK).json({
-        code: httpStatus.OK,
-        status:true,
-        data: { userData: userRes.userData, profileData:userRes.profileData }
-      });
-    } else {
-      res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
-        code: httpStatus.INTERNAL_SERVER_ERROR,
-        status:false,
-        data: 'something went wrong',
-      });
-    }
-  } catch (err) {
-    res.status(httpStatus.BAD_REQUEST).json({
-      status: httpStatus.BAD_REQUEST,
-      data: err.message,
-    });
-  }
-});
-
 const logout = catchAsync(async (req, res) => {
   await authService.logout(req.body.refreshToken);
   res.status(httpStatus.NO_CONTENT).send();
@@ -113,10 +62,8 @@ const refreshTokens = catchAsync(async (req, res) => {
 });
 
 module.exports = {
-  register,
   login,
   logout,
   refreshTokens,
-  getCurrentUser,
   singup,
 };

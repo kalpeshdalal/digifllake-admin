@@ -74,6 +74,7 @@ passport.deserializeUser(function (obj, done) {
 });
 // jwt authentication
 app.use(passport.initialize());
+//If sessions are being utilized, and a login session has been established, this middleware will populate req.user with the current user.
 app.use(passport.session());
 passport.use('jwt', jwtStrategy);
 

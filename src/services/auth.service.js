@@ -86,21 +86,7 @@ const refreshAuth = async (refreshToken) => {
 };
 
 
-/**
- * getCurrentUser
- * @param {string} token
- * @returns {Promise}
- */
-const getCurrentUser = async (token) => {
-  try {
-    const { user } = await tokenService.verifyToken(token, 'refresh');
-    const userData = await User.findOne({ _id: mongoose.Types.ObjectId(user), active: true });
-    return { userData, status: true, statusCode: 200 };
-  } catch (error) {
-    // throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR, 'getCurrentUser failed');
-    return { userData: null, profileData: null, isError: 'getCurrentUser failed', status: false, statusCode: 500 }
-  }
-};
+
 
 //check Email already exists
 const checkEmail = async (email) => {
@@ -111,7 +97,6 @@ module.exports = {
   loginUserWithEmailAndPassword,
   logout,
   refreshAuth,
-  getCurrentUser,
   singup,
   checkEmail,
 };
